@@ -11,11 +11,14 @@ export default function Components() {
   const [memberGuid, setMemberGuid] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const handleGetUrl = async () => {
-    const { data } = await axios.post("/api/connect", {});
-    console.log({ data });
-    setConnectWidgetUrl(data?.widget_url?.url);
+    try {
+      const { data } = await axios.post("/api/connect", {});
+      console.log({ data });
+      setConnectWidgetUrl(data?.widget_url?.url);
+    } catch (e) {
+      console.error("Error");
+    }
   };
-  console.log({ userGuid, memberGuid });
   return (
     <div>
       <div className="flex gap-5 items-center justify-center">
@@ -23,7 +26,7 @@ export default function Components() {
           className="p-2 bg-green-500 text-white rounded-lg"
           onClick={handleGetUrl}
         >
-          connect
+          Connect
         </button>
         <Balance />
       </div>
